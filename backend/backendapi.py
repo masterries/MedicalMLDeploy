@@ -5,7 +5,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"message": "Willkommen zur FastAPI-Anwendung! - 2"}
+    return {"message": "Willkommen zur FastAPI-Anwendung! - 3"}
 
 def get_git_commit_info():
     try:
