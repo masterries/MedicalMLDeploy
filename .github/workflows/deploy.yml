@@ -1,37 +1,39 @@
-          # FILEPATH: /workspaces/MedicalMLDeploy/.github/workflows/deploy.yml
+name: Deploy FastAPI App
 
-          name: Deploy FastAPI App in Docker
+on:
+  push:
+    branches: [ main ]
 
-          on:
-            push:
-              branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-          jobs:
-            deploy:
-              runs-on: ubuntu-latest
+    - name: Copy Repository to Server
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        source: "."
+        target: "/home/masterries/github/MedicalMLDeploy"
+    - name: Build and Restart Docker Container
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: |
+            cd /home/masterries/github/MedicalMLDeploy/backend
+            docker build -t backendapi:latest .
+            docker stop backendapi || true
+            docker rm backendapi || true
+            docker run -d --name backendapi -p 8882:8882 backendapi:latest
 
-              steps:
-                - name: Checkout Repository
-                  uses: actions/checkout@v2
 
-                - name: Copy Repository to Server
-                  uses: appleboy/scp-action@master
-                  with:
-                    host: ${{ secrets.HOST }}
-                    username: ${{ secrets.USERNAME }}
-                    key: ${{ secrets.KEY }}
-                    source: "."
-                    target: "/path/to/your/project"
 
-                - name: Build and Restart Docker Container
-                  uses: appleboy/ssh-action@master
-                  with:
-                    host: ${{ secrets.HOST }}
-                    username: ${{ secrets.USERNAME }}
-                    key: ${{ secrets.KEY }}
-                    script: |
-                      cd /home/masterries/github/MedicalMLDeploy/backend
-                      docker build -t backendapi:latest .
-                      docker stop backendapi || true
-                      docker rm backendapi || true
-                      docker run -d --name backendapi -p 8882:8882 backendapi:latest
+
+              
+          
