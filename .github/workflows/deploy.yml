@@ -24,7 +24,7 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
+        key: ${{ secrets.KEY }}
         script: |
           cd /home/masterries/github/MedicalMLDeploy/backend
           # Stellen Sie sicher, dass Sie hier die richtigen Befehle zum Starten Ihrer Anwendung verwenden
