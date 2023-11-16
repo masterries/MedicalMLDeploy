@@ -27,10 +27,10 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
             cd /home/masterries/github/MedicalMLDeploy/backend
-            docker build -t backendapi:latest .
-            docker stop backendapi || true
-            docker rm backendapi || true
-            docker run -d --name backendapi -p 8882:8882 backendapi:latest
+            sudo docker build -t backendapi:latest .
+            sudo docker stop backendapi || true
+            sudo docker rm backendapi || true
+            sudo docker run -d --name backendapi -p 8882:8882 backendapi:latest
 
 
 
