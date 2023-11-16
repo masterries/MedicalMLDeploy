@@ -28,5 +28,5 @@ jobs:
         script: |
           cd /home/masterries/github/MedicalMLDeploy/backend
           # Stellen Sie sicher, dass Sie hier die richtigen Befehle zum Starten Ihrer Anwendung verwenden
-          uvicorn backendapi:app --reload
+          # uvicorn backendapi:app --reload
 
