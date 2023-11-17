@@ -6,7 +6,8 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    #runs-on: self-hosted #fix this later
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
